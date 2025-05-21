@@ -300,7 +300,9 @@ public class GlCameraPreview extends CameraPreview<GLSurfaceView, SurfaceTexture
                     int textureId = mOutputTextureDrawer.getTexture().getId();
                     callback.onRendererTextureCreated(textureId);
                 }
-                callback.onRendererFilterChanged(mCurrentFilter);
+                if (mCurrentFilter != null) {
+                    callback.onRendererFilterChanged(mCurrentFilter);
+                }
             }
         });
     }
