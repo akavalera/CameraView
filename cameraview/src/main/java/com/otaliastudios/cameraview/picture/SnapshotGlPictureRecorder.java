@@ -136,7 +136,11 @@ public class SnapshotGlPictureRecorder extends SnapshotPictureRecorder {
         WorkerHandler.execute(new Runnable() {
             @Override
             public void run() {
-                takeFrame(surfaceTexture, rotation, scaleX, scaleY, eglContext);
+                try {
+                    takeFrame(surfaceTexture, rotation, scaleX, scaleY, eglContext);
+                } catch (RuntimeException ex) {
+                    LOG.i("onRendererFrame:", "RuntimeException:", ex);
+                }
 
             }
         });
