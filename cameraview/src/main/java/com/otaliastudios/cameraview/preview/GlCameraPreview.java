@@ -146,7 +146,9 @@ public class GlCameraPreview extends CameraPreview<GLSurfaceView, SurfaceTexture
                 mCurrentFilter = new NoFilter();
             }
             mOutputTextureDrawer = new GlTextureDrawer();
-            mOutputTextureDrawer.setFilter(mCurrentFilter);
+            if(mCurrentFilter != null) {
+                mOutputTextureDrawer.setFilter(mCurrentFilter);
+            }
             final int textureId = mOutputTextureDrawer.getTexture().getId();
             mInputSurfaceTexture = new SurfaceTexture(textureId);
             getView().queueEvent(new Runnable() {
@@ -351,7 +353,7 @@ public class GlCameraPreview extends CameraPreview<GLSurfaceView, SurfaceTexture
         getView().queueEvent(new Runnable() {
             @Override
             public void run() {
-                if (mOutputTextureDrawer != null) {
+                if (mOutputTextureDrawer != null && filter != null) {
                     mOutputTextureDrawer.setFilter(filter);
                 }
                 for (RendererFrameCallback callback : mRendererFrameCallbacks) {

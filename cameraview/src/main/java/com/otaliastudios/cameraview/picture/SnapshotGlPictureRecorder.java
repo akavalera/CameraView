@@ -87,6 +87,9 @@ public class SnapshotGlPictureRecorder extends SnapshotPictureRecorder {
             @RendererThread
             @Override
             public void onRendererFilterChanged(@NonNull Filter filter) {
+                if(filter == null) {
+                    return;
+                }
                 SnapshotGlPictureRecorder.this.onRendererFilterChanged(filter);
             }
 
@@ -119,10 +122,14 @@ public class SnapshotGlPictureRecorder extends SnapshotPictureRecorder {
     @RendererThread
     @TargetApi(Build.VERSION_CODES.KITKAT)
     protected void onRendererFilterChanged(@NonNull Filter filter) {
-        if (filter == null) {
+        if(filter == null) {
             return;
         }
-        mTextureDrawer.setFilter(filter.copy());
+        Filter filterCopy = filter.copy();
+        if (filterCopy == null) {
+            return;
+        }
+        mTextureDrawer.setFilter(filterCopy);
     }
 
     @SuppressWarnings("WeakerAccess")
