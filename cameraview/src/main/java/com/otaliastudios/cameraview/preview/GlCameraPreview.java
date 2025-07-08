@@ -303,8 +303,8 @@ public class GlCameraPreview extends CameraPreview<GLSurfaceView, SurfaceTexture
                     callback.onRendererTextureCreated(textureId);
                 }
                 Filter filter = mCurrentFilter;
-                if (mCurrentFilter != null) {
-                    callback.onRendererFilterChanged(mCurrentFilter);
+                if (filter != null) {
+                    callback.onRendererFilterChanged(filter);
                 }
             }
         });
@@ -357,7 +357,9 @@ public class GlCameraPreview extends CameraPreview<GLSurfaceView, SurfaceTexture
                     mOutputTextureDrawer.setFilter(filter);
                 }
                 for (RendererFrameCallback callback : mRendererFrameCallbacks) {
-                    callback.onRendererFilterChanged(filter);
+                    if (filter != null) {
+                        callback.onRendererFilterChanged(filter);
+                    }
                 }
             }
         });
