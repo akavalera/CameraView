@@ -72,7 +72,7 @@ public class GlCameraPreview extends CameraPreview<GLSurfaceView, SurfaceTexture
     @VisibleForTesting float mCropScaleX = 1F;
     @VisibleForTesting float mCropScaleY = 1F;
     private View mRootView;
-    private Filter mCurrentFilter;
+    private Filter mCurrentFilter = new NoFilter();
 
     public GlCameraPreview(@NonNull Context context, @NonNull ViewGroup parent) {
         super(context, parent);
@@ -345,7 +345,7 @@ public class GlCameraPreview extends CameraPreview<GLSurfaceView, SurfaceTexture
 
     @Override
     public void setFilter(final @NonNull Filter filter) {
-        mCurrentFilter = filter;
+        mCurrentFilter = filter == null ? new NoFilter() : filter;
         if (hasSurface()) {
             filter.setSize(mOutputSurfaceWidth, mOutputSurfaceHeight);
         }
